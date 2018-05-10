@@ -1,0 +1,30 @@
+<div class="white-background">
+  <table class="table">
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Email</th>
+          <th>Username</th>
+          <th>Name</th>
+          <th colspan="4">Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.role %></td>
+            <td><%= link_to user.email, edit_user_path(id: user.id) %></td>
+            <td><%= user.username %></td>
+            <td><%= user.name %></td>
+            <td><%= user.address %></td>
+            <td><%= user.city %></td>
+            <td><%= user.state %></td>
+            <td><%= user.zip %></td>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+
+  <%= link_to "Create User", new_user_path, class: "btn btn-default" %>
+
+</div>

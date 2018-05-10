@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Patua+One');
+
+@mixin social-button($color) {
+  display: inline;
+  a {
+    img {
+      margin: 0 5px 0 5px;
+      border-radius: 100%;
+      height: 64px;
+      width: 64px;
+      &:hover {
+        background-color: $color;
+        transition: ease .25s;
+      }
+    }
+  }
+}
+
+.my-background {
+  background: url(image-path("background.jpg"));
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.banner {
+  font-family: 'Pacifico', cursive;
+  color: white;
+  text-shadow: 1px 1px 8px $myw-pink;
+  font-size: 80px;
+  text-align: center;
+  margin: 50px 0 40px 0;
+}
+
+.panel, .panel-default {
+  .panel-blog-post {
+    .panel-heading {
+      padding: 0px;
+      p {
+        font-family: 'Pacifico', cursive;
+        font-size: 30px;
+        padding: 10px 0 0 10px;
+        position: absolute;
+      }
+      img {
+        width: 100%;
+        border-radius: 2px 2px 0 0;
+        // .blog-pic-style {
+        //   &:hover {
+        //     filter: brightness(200%);
+        //     transition: ease 1s;
+        //   }
+        // }
+      }
+    }
+  }
+  .panel-body {
+    img {
+      border-radius: 100%;
+    }
+  }
+}
+
+.navbar {
+  margin-bottom: 40px;
+  background-color: $myw-pink;
+  border: none;
+  .navbar-header {
+    margin: 0 50px 0 50px;
+    button {
+      border-width: 2px;
+      border-color: white;
+      &:hover {
+        background-color: $myw-blue;
+        transition: ease .25s;
+      }
+      &:focus {
+        background-color: $myw-blue;
+      }
+      .icon-bar {
+        background-color: white;
+      }
+    }
+    .navbar-brand {
+      color: white;
+      font-family: 'Patua One', cursive;
+      &:hover {
+        color: $myw-blue;
+        transition: ease .25s;
+      }
+    }
+  }
+  .collapse, .navbar-collapse {
+    .nav, .navbar-nav, .navbar-right {
+      margin: 0 50px 0 50px;
+      li {
+        a {
+          color: white;
+          font-family: 'Patua One', cursive;
+          &:hover {
+            color: $myw-blue;
+            transition: ease .25s;
+          }
+        }
+      }
+    }
+  }
+}
+
+.panel-default {
+  border: none;
+  font-family: 'Patua One', cursive;
+  .panel-footer {
+    background-color: $myw-blue;
+  }
+  .panel-heading {
+    background-color: $myw-blue;
+    color: white;
+    a {
+      color: white;
+      text-decoration: none;
+      &:hover {
+        color: $myw-pink;
+        transition: ease .25s;
+      }
+    }
+  }
+}
+
+.container {
+  margin: 60px auto 20px auto;
+}
+
+.contact {
+  margin: 20px 0 20px 0;
+  text-align: center;
+  .custom-button {
+    height: 34px;
+    margin: 0 auto 20px auto;
+    width: 110px;
+    border: solid white 3px;
+    font-family: 'Patua One', cursive;
+    font-size: 20px;
+    a {
+      text-decoration: none;
+      color: white;
+    }
+    &:hover {
+      background-color: $myw-pink;
+      transition: ease .25s;
+    }
+  }
+  .social-buttons {
+    .facebook {
+      @include social-button($facebook);
+    }
+    .twitter {
+      @include social-button($twitter);
+    }
+    .linkedin {
+      @include social-button($linkedin);
+    }
+  }
+}
+
+// .custom-footer {
+//   bottom: 0px;
+//   width: 100%;
+//   padding: 20px;
+//   color: white;
+//   text-align: center;
+//   background-color: black;
+// }
