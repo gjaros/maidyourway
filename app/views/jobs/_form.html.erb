@@ -1,0 +1,44 @@
+<%= form_with(model: job, local: true) do |form| %>
+  <% if job.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(job.errors.count, "error") %> prohibited this job from being saved:</h2>
+
+      <ul>
+      <% job.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :job_name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <strong>Date and Time</strong><br />
+    <%= form.datetime_select :datetime, id: :job_datetime, class: "form-control datepicker" %>
+  </div>
+
+  <%= form.hidden_field :created_by, value: current_user.id %>
+
+  <div class="form-group">
+    <%= form.label :client_id %>
+    <%= form.text_field :client_id, id: :job_client_id, rows: 5, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :workers %>
+    <%= form.text_field :workers, id: :job_worker, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :notes %>
+    <%= form.text_area :notes, id: :job_notes, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

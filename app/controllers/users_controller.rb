@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_admin, only: [:create, :edit, :update]
   authorize_resource
+  
   include UserHelper
 
   # GET /users

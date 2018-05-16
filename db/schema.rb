@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180515220848) do
+ActiveRecord::Schema.define(version: 20180516165535) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.integer "user_id"
@@ -29,6 +29,17 @@ ActiveRecord::Schema.define(version: 20180515220848) do
     t.integer "blog_post_id"
   end
 
+  create_table "jobs", force: :cascade do |t|
+    t.string "name"
+    t.datetime "datetime"
+    t.integer "created_by"
+    t.integer "client_id"
+    t.text "notes"
+    t.string "workers"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -42,7 +53,7 @@ ActiveRecord::Schema.define(version: 20180515220848) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "role"
+    t.string "role", default: "client"
     t.string "name"
     t.string "street"
     t.string "city"

@@ -1,0 +1,36 @@
+<div class="white-background">
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <strong>Name:</strong>
+    <%= @job.name %>
+  </p>
+
+  <p>
+    <strong>Datetime:</strong>
+    <%= @job.datetime %>
+  </p>
+
+  <p>
+    <strong>Created by:</strong>
+    <%= @job.created_by %>
+  </p>
+
+  <p>
+    <strong>Client:</strong>
+    <%= @job.client_id %>
+  </p>
+
+  <p>
+    <strong>Notes:</strong>
+    <%= @job.notes %>
+  </p>
+
+  <p>
+    <strong>Workers:</strong>
+    <%= @job.workers %>
+  </p>
+
+  <%= link_to 'Edit', edit_job_path(@job) %> |
+  <%= link_to 'Back', jobs_path %>
+</div>
