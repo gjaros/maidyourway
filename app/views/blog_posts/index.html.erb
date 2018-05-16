@@ -17,7 +17,12 @@
           </div>
         </div>
         <div class="panel-body">
-          by <%=  blog_post.user.username %> <%= image_tag blog_post.user.avatar.url, size: 40 %><br />
+          by <%=  blog_post.user.username %>
+          <% if blog_post.user.avatar.nil? %>
+            <%= image_tag blog_post.user.avatar.url, size: 40 %>
+          <% else %>
+            <%= image_tag 'user.svg', size: 40 %>
+          <% end %><br />
           <p><i>Created: <%= blog_post.created_at.strftime('%m/%d/%Y at %I:%M%p') %></i></p>
           <p><%= blog_post.blog[0..150] %>..<%= link_to "Read More", blog_post %></p>
         </div>

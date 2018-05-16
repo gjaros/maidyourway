@@ -1,5 +1,6 @@
-<h3>New Blog Post</h3>
+<div class="white-background">
+  <h3>New Blog Post</h3>
 
-<%= render 'form', blog_post: @blog_post %>
-
-<%= link_to 'Back', blog_posts_path, class: "btn btn-default" %>
+  <%= render 'form', blog_post: @blog_post %>
+  <%= link_to 'All Posts', blog_posts_path, class: "btn btn-default" %>
+</div>

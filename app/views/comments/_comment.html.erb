@@ -1,6 +1,26 @@
 <% @blog_post.comments.each do |comment| %>
-  <h4><%= comment.user.email %></h4>
-  <i><p><%= time_ago_in_words(comment.created_at) %> ago</p></i>
-  <p><%= comment.comment %></p>
+  <div class="row">
+    <div class="col-sm-1">
+      <div class="thumbnail">
+        <% if comment.user.avatar.nil? %>
+          <%= image_tag comment.user.avatar.url, size: 40 %>
+        <% else %>
+          <%= image_tag 'user.svg', size: 40 %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-sm-5">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <%= comment.user.username %>
+        </div>
+        <div class="panel-body">
+          <i><%= time_ago_in_words(comment.created_at) %> ago</i><br />
+          <%= comment.comment %>
+        </div>
+      </div>
+    </div>
+  </div>
   <br />
 <% end %>

@@ -8,7 +8,13 @@
     </div>
   </div>
   <div class="panel-body">
-    <p>by: <%= @blog_post.user.username %></p>
+    <p>by: <strong><%= @blog_post.user.username %></strong>
+      <% if @blog_post.user.avatar.nil? %>
+        <%= image_tag @blog_post.user.avatar.url, size: 40 %>
+      <% else %>
+        <%= image_tag 'user.svg', size: 40 %>
+      <% end %>
+    </p>
     <i><p><%= time_ago_in_words(@blog_post.created_at) %> ago</p></i>
     <p><%= @blog_post.blog %></p>
   </div>
@@ -23,7 +29,11 @@
 <div class="panel panel-default">
   <% if current_user %>
     <div class="panel-heading">
-      Make a Comment...
+      <% if current_user.avatar.nil? %>
+        <%= image_tag current_user.avatar.url, size: 40 %>
+      <% else %>
+        <%= image_tag 'user.svg', size: 40 %>
+      <% end %>
     </div>
     <div class="panel-body">
       <%= render 'comments/form'%>
@@ -35,13 +45,6 @@
   <% end %>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    All Comments...
-  </div>
-  <div class="panel-body">
-    <%= render 'comments/comment'%>
-  </div>
-</div>
+<%= render 'comments/comment'%>
 
 <%= render 'layouts/contact' %>

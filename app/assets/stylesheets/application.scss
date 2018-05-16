@@ -1,7 +1,18 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "colors";
-@import "styles";
 @import 'welcome';
 @import "blog_posts";
+@import "comments";
 @import "user";
+
+.float-right {
+  float: right;
+}
+
+.white-background {
+  background-color: rgb(242, 242, 242);
+  font-family: 'Patua One', cursive;
+  border-radius: 4px;
+  padding: 10px;
+}

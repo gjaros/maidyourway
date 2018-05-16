@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180505230341) do
+ActiveRecord::Schema.define(version: 20180515220848) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.integer "user_id"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20180505230341) do
     t.datetime "updated_at", null: false
     t.string "role"
     t.string "name"
-    t.string "address"
+    t.string "street"
     t.string "city"
     t.integer "zip"
     t.string "state"
