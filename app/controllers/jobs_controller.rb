@@ -7,6 +7,7 @@ class JobsController < ApplicationController
   # GET /jobs
   def index
     @jobs = Job.all
+    @month = Date.today.strftime("%B")
   end
 
   # GET /jobs/1

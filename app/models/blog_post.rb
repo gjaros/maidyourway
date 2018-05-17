@@ -5,6 +5,7 @@ class BlogPost < ApplicationRecord
 
   validates :title, :blog, presence: true
   validates :title, uniqueness: true, length: { maximum: 140 }
+  validates :blog_pic, presence: true
 
   mount_uploader :blog_pic, BlogPicUploader
 

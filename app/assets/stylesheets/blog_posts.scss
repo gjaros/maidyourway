@@ -18,11 +18,8 @@
 }
 
 .my-background {
-  background: url(image-path("background.jpg"));
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
+  background: url(image-path("background.jpg")) no-repeat fixed;
   background-size: cover;
-  -o-background-size: cover;
 }
 
 .banner {
@@ -41,7 +38,9 @@
       p {
         font-family: 'Pacifico', cursive;
         font-size: 30px;
-        padding: 10px 0 0 10px;
+        text-shadow: 2px 2px 2px black;
+        text-align: center;
+        padding: 15px;
         position: absolute;
       }
       img {
@@ -124,6 +123,7 @@
       &:hover {
         color: $myw-pink;
         transition: ease .25s;
+        text-shadow: 2px 2px 2px white;
       }
     }
   }

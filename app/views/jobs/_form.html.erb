@@ -18,24 +18,24 @@
 
   <div class="form-group">
     <strong>Date and Time</strong><br />
-    <%= form.datetime_select :datetime, id: :job_datetime, class: "form-control datepicker" %>
+    <%= form.datetime_select :datetime, id: :job_datetime, class: "form-control" %>
   </div>
 
   <%= form.hidden_field :created_by, value: current_user.id %>
 
   <div class="form-group">
     <%= form.label :client_id %>
-    <%= form.text_field :client_id, id: :job_client_id, rows: 5, class: "form-control" %>
+    <%= form.collection_select(:client_id, User.where(role: "client"), :id, :name) %>
   </div>
 
   <div class="form-group">
     <%= form.label :workers %>
-    <%= form.text_field :workers, id: :job_worker, class: "form-control" %>
+    <%= form.collection_select(:workers, User.where(role: "worker"), :id, :name) %>
   </div>
 
   <div class="form-group">
     <%= form.label :notes %>
-    <%= form.text_area :notes, id: :job_notes, class: "form-control" %>
+    <%= form.text_area :notes, id: :job_notes, rows: 5, class: "form-control" %>
   </div>
 
   <div class="actions">

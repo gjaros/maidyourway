@@ -1,3 +1,10 @@
-// Place all the styles related to the Jobs controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.calender {
+  margin: 0 15px 0 15px;
+  display: flex;
+  .day {
+    width: 20%;
+    height: auto;
+    border: solid black 1px;
+    background-color: white;
+  }
+}
