@@ -1,10 +1,32 @@
+h2 {
+  text-align: center;
+}
+
 .calender {
-  margin: 0 15px 0 15px;
-  display: flex;
-  .day {
-    width: 20%;
-    height: auto;
-    border: solid black 1px;
-    background-color: white;
+  table {
+    table-layout: fixed;
+    thead {
+      tr {
+        th {
+          text-align: center;
+        }
+      }
+    }
+    tbody {
+      tr {
+        height: 120px;
+        td {
+          .btn-primary {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.modal-body {
+  .btn-warning, .btn-danger {
+    text-align: center;
   }
 }

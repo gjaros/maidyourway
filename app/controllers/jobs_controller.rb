@@ -7,7 +7,33 @@ class JobsController < ApplicationController
   # GET /jobs
   def index
     @jobs = Job.all
-    @month = Date.today.strftime("%B")
+
+    @calender_days = []
+
+    day = Time.now.day
+    month = Time.now.month
+    month_minus_one = month - 1
+    month_plus_one = month + 1
+
+    # finds the first day of the calender for the current month
+    until (Time.new.change(day: day, month: month).strftime('%A') == 'Sunday') && (day == 1 || month == month_minus_one)
+      if day == 1
+        month -= 1
+        day = Time.days_in_month(month_minus_one)
+      end
+      day -= 1
+    end
+
+    # fills calender for current month
+    until @calender_days.length == 35 && month == month_plus_one
+      @calender_days.push(Time.new.change(day: day, month: month))
+      if day == Time.days_in_month(month)
+        month += 1
+        day = 0
+      end
+      day += 1
+    end
+
   end
 
   # GET /jobs/1

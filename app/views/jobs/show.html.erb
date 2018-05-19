@@ -31,6 +31,6 @@
     <%= User.find(@job.workers).username %>
   </p>
 
-  <%= link_to 'Edit', edit_job_path(@job) %> |
-  <%= link_to 'Back', jobs_path %>
+  <%= link_to 'Edit', edit_job_path(@job), class: "btn btn-warning" %>
+  <%= link_to 'Back', jobs_path, class: "btn btn-default" %>
 </div>

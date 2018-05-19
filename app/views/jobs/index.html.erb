@@ -1,41 +1,43 @@
 <div class="white-background">
   <p id="notice"><%= notice %></p>
 
+  <h2><%= Time.now.strftime('%B') %></h2>
+
   <div class="calender">
-    <%= @month %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Sunday</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% count = 0 %>
+        <% 5.times do %>
+          <tr>
+            <% 7.times do %>
+              <td>
+                <% date = @calender_days[count] %>
+                <u><%= date.strftime('%d') %></u><br />
+                <% @jobs.limit(3).where('DATE(datetime) = ?', Date.parse(date.to_s)).each do |job| %>
+                  <%= job.name %><br />
+                <% end %>
+                <%= render partial: 'day', locals: {jobs: @jobs, count: count, date: date} %>
+                <% count += 1 %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Datetime</th>
-        <th>Created by</th>
-        <th>Client</th>
-        <th>Notes</th>
-        <th>Workers</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+  <br />
 
-    <tbody>
-      <% @jobs.each do |job| %>
-        <tr>
-          <td><%= job.name %></td>
-          <td><%= job.datetime %></td>
-          <td><%= User.find(job.created_by).username %></td>
-          <td><%= User.find(job.client_id).username %></td>
-          <td><%= job.notes %></td>
-          <td><%= User.find(job.workers).username %></td>
-          <td><%= link_to 'Show', job %></td>
-          <td><%= link_to 'Edit', edit_job_path(job) %></td>
-          <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <br>
-
-  <%= link_to 'New Job', new_job_path %>
+  <%= link_to 'New Job', new_job_path, class: "btn btn-default" %>
 </div>
