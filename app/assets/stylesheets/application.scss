@@ -1,11 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Patua+One');
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "colors";
 @import 'welcome';
 @import "blog_posts";
 @import "comments";
-@import "jobs";
 @import "user";
+@import "jobs";
 
 .float-right {
   float: right;

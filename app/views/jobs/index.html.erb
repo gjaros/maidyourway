@@ -1,7 +1,19 @@
 <div class="white-background">
   <p id="notice"><%= notice %></p>
 
-  <h2><%= Time.now.strftime('%B') %></h2>
+  <%# create_calender(current_time, nil) %>
+
+  <h2>
+    <%= link_to jobs_path(current_time: Time.new.advance(months: -1)) do %>
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    <% end %>
+    <%= Time.now.strftime('%B') %>
+    <%= link_to jobs_path(current_time: Time.new.advance(months: 1)) do %>
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    <% end %>
+  </h2>
+
+  <%# @current_time %>
 
   <div class="calender">
     <table class="table">

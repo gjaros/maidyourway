@@ -1,5 +1,5 @@
 <% if @jobs.where('DATE(datetime) = ?', Date.parse(date.to_s)).length > 3 %>
-  <button type="button" class="btn btn-primary btn-xs align-bottom" data-toggle="modal" data-target="#day-tasks">
+  <button type="button" class="align-text-bottom btn btn-primary btn-xs" data-toggle="modal" data-target="#day-tasks">
     <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
   </button>
   <div class="modal fade" id="day-tasks" tabindex="-1" role="dialog" aria-labelledby="day-tasks-Label" aria-hidden="true">
@@ -16,7 +16,8 @@
               <u>Date:</u> <%= job.datetime %><br />
               <u>Created</u> By: <%= User.find(job.created_by).username %><br />
               <u>Client:</u> <%= User.find(job.client_id).username %><br />
-              <u>Notes:</u> <%= job.notes %><br />
+              <u>Address:</u> <%= get_address(User.find(job.client_id))  %><br />
+              <u>Notes:</u> <%= job.notes %><br /)>
               <u>Workers:</u> <%= User.find(job.workers).username %><br />
             </p>
             <%= link_to 'Edit', edit_job_path(job), class: "btn btn-warning" %>
@@ -25,7 +26,7 @@
           <% end %>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary align-bottom" data-dismiss="modal">Close</button>
+          <button type="button" class="align-text-bottom btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
