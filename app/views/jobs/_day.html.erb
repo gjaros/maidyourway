@@ -9,9 +9,9 @@
       </div>
       <div class="modal-body">
         <% client_set.each do |client| %>
+          <!-- Not ordered -->
           <h5><%= link_to User.find(client).username, show_user_path(id: User.find(client).id) %></h5>
-          <!--  Query not working, check "Active Record Querying"-->
-          <% @jobs.where("client_id = ? AND DATE(datetime) = ?", User.find(client).id, Date.parse(date.to_s)).each do |job| %>
+          <% @jobs.where("client_id = ? AND DATE(datetime) = ?", User.find(client).id, Date.parse(date.to_s)).order(:datetime).each do |job| %>
             <u>Name:</u> <%= job.name %><br />
             <u>Time:</u> <%= job.datetime.strftime('%I:%M%P') %><br />
             <u>Created</u> By: <%= User.find(job.created_by).username %><br />

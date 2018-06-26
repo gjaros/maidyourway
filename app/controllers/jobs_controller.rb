@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :create_calender, only: :index
+  before_action :calender, only: :index
 
   authorize_resource
 
@@ -12,7 +12,7 @@ class JobsController < ApplicationController
     @jobs = Job.all
   end
 
-  def create_calender
+  def calender
 
     @calender_days = []
     current_time = Date.parse(params[:current_time])
@@ -35,6 +35,10 @@ class JobsController < ApplicationController
       current_time = current_time.advance(days: 1)
     end
 
+  end
+
+  def schedule
+    
   end
 
   # GET /jobs/1

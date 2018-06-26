@@ -18,6 +18,9 @@
         <% if signed_in? && current_user.role == "admin" %>
           <li><%= link_to "Manage Users", users_path %></li>
         <% end %>
+        <% if signed_in? && current_user.role == "worker" %>
+          <li><%= link_to "Schedule", schedule_path %></li>
+        <% end %>
         <% if signed_in? && current_user.role != "client" %>
           <li><%= link_to "Calender", jobs_path(current_time: Time.now) %></li>
         <% end %>

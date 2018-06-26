@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'user/blog_post_params'
   get 'blog_posts' => 'blog_posts#index'
   get 'show_job' => 'jobs#show'
+  get 'schedule' => 'jobs#schedule'
 
   post 'create_user' => 'users#create', as: :create_user
   get 'edit_user' => 'users#edit', as: :edit_user
