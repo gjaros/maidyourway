@@ -14,37 +14,27 @@ class JobsController < ApplicationController
 
   def create_calender
 
-    # if current_time.nil?
-    #   @current_time = Time.now
-    # else
-    #   @current_time = current_time
-    # end
-
     @calender_days = []
+    current_time = Date.parse(params[:current_time])
 
-    day = Time.now.day
-    month = Time.now.month
-    month_minus_one = month - 1
-    month_plus_one = month + 1
+    month_sub_one = current_time.month - 1
+    month_add_one = current_time.month + 1
 
     # finds the first day of the calender for the current month
-    until (Time.new.change(day: day, month: month).strftime('%A') == 'Sunday') && (day == 1 || month == month_minus_one)
-      if day == 1
-        month -= 1
-        day = Time.days_in_month(month_minus_one)
+    until (current_time.strftime('%A') == 'Sunday') && (current_time.day == 1 || current_time.month == month_sub_one)
+      if current_time.day == 1
+        current_time = current_time.advance(months: -1)
+        current_time = current_time.change(day: Time.days_in_month(current_time.month))
       end
-      day -= 1
+      current_time = current_time.advance(days: -1)
     end
 
     # fills calender for current month
-    until @calender_days.length == 35 && month == month_plus_one
-      @calender_days.push(Time.new.change(day: day, month: month))
-      if day == Time.days_in_month(month)
-        month += 1
-        day = 0
-      end
-      day += 1
+    until @calender_days.length == 35
+      @calender_days.push(current_time)
+      current_time = current_time.advance(days: 1)
     end
+
   end
 
   # GET /jobs/1

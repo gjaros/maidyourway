@@ -14,11 +14,12 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
+        <li><p class="demo"><strong>Demo Mode</strong> - User: admin@maidyourway.com | Password: password</p></li>
         <% if signed_in? && current_user.role == "admin" %>
           <li><%= link_to "Manage Users", users_path %></li>
         <% end %>
         <% if signed_in? && current_user.role != "client" %>
-          <li><%= link_to "Calender", jobs_path %></li>
+          <li><%= link_to "Calender", jobs_path(current_time: Time.now) %></li>
         <% end %>
         <% if current_user %>
           <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>

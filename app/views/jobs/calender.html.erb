@@ -1,3 +1,5 @@
+<!--  This is just a bunch of code fragments! -->
+
 <div class="day">
   <u><%= day + 1 %></u><br />
   <% @jobs.each do |job| %>
@@ -50,3 +52,27 @@
     <% end %>
   </tbody>
 </table>
+
+<% date = @calender_days[count] %>
+<u><%= date.strftime('%d') %></u><br />
+<% @jobs.limit(3).where('DATE(datetime) = ?', Date.parse(date.to_s)).each do |job| %>
+  <%= job.name %><br />
+<% end %>
+<%= render partial: 'day', locals: {jobs: @jobs, count: count, date: date} %>
+
+<% @jobs.where('DATE(datetime) = ?', Date.parse(date.to_s)).each do |job| %>
+  <h5><%= User.find(job.client_id).username %></h5>
+  <h6><%= get_address(User.find(job.client_id)) %></h6>
+  <% @jobs.where(client_id: job.client_id).each do |task| %>
+    <p>
+      <u>Name:</u> <%= task.name %><br />
+      <u>Date:</u> <%= task.datetime %><br />
+      <u>Created</u> By: <%= User.find(task.created_by).username %><br />
+      <u>Notes:</u> <%= task.notes %><br />
+      <u>Workers:</u> <%= User.find(task.workers).username %><br />
+    </p>
+    <%= link_to 'Edit', edit_job_path(job), class: "btn btn-warning" %>
+    <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+    <hr />
+  <% end %>
+<% end %>

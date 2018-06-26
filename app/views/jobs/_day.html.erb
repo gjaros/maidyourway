@@ -1,38 +1,30 @@
-<% if @jobs.where('DATE(datetime) = ?', Date.parse(date.to_s)).length > 3 %>
-  <button type="button" class="align-text-bottom btn btn-primary btn-xs" data-toggle="modal" data-target="#day-tasks">
-    <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-  </button>
-  <div class="modal fade" id="day-tasks" tabindex="-1" role="dialog" aria-labelledby="day-tasks-Label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="day-tasks-ModalLabel"><%= date.strftime('%m/%d') %></h4>
-        </div>
-        <div class="modal-body">
-          <% date = @calender_days[count] %>
-          <% @jobs.where('DATE(datetime) = ?', Date.parse(date.to_s)).each do |job| %>
-            <p>
-              <u>Name:</u> <%= job.name %><br />
-              <u>Date:</u> <%= job.datetime %><br />
-              <u>Created</u> By: <%= User.find(job.created_by).username %><br />
-              <u>Client:</u> <%= User.find(job.client_id).username %><br />
-              <u>Address:</u> <%= get_address(User.find(job.client_id))  %><br />
-              <u>Notes:</u> <%= job.notes %><br /)>
-              <u>Workers:</u> <%= User.find(job.workers).username %><br />
-            </p>
-            <%= link_to 'Edit', edit_job_path(job), class: "btn btn-warning" %>
-            <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-            <hr />
+<button type="button" class="align-text-bottom btn btn-primary btn-xs" data-toggle="modal" data-target="#day-tasks-<%= count %>">
+  <%= date.strftime('%d') %>
+</button>
+<div class="modal fade" id="day-tasks-<%= count %>" tabindex="-1" role="dialog" aria-labelledby="day-tasks-Label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="day-tasks-ModalLabel"><%= date.strftime('%m/%d') %></h4>
+      </div>
+      <div class="modal-body">
+        <% client_set.each do |client| %>
+          <h5><%= link_to User.find(client).username, show_user_path(id: User.find(client).id) %></h5>
+          <!--  Query not working, check "Active Record Querying"-->
+          <% @jobs.where("client_id = ? AND DATE(datetime) = ?", User.find(client).id, Date.parse(date.to_s)).each do |job| %>
+            <u>Name:</u> <%= job.name %><br />
+            <u>Time:</u> <%= job.datetime.strftime('%I:%M%P') %><br />
+            <u>Created</u> By: <%= User.find(job.created_by).username %><br />
+            <u>Notes:</u> <%= job.notes %><br />
+            <br />
+            <!--  Add Workers -->
           <% end %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="align-text-bottom btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
+          <hr />
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="align-text-bottom btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
-<% else %>
-  <button type="button" class="btn btn-primary btn-xs disabled">
-    <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-  </button>
-<% end %>
+</div>

@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-
+    @jobs = Job.all
   end
 
   # GET /users/new

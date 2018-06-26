@@ -1,19 +1,15 @@
 <div class="white-background">
   <p id="notice"><%= notice %></p>
 
-  <%# create_calender(current_time, nil) %>
-
   <h2>
-    <%= link_to jobs_path(current_time: Time.new.advance(months: -1)) do %>
+    <%= link_to jobs_path(current_time: @calender_days[15].advance(months: -1)) do %>
       <span class="glyphicon glyphicon-chevron-left"></span>
     <% end %>
-    <%= Time.now.strftime('%B') %>
-    <%= link_to jobs_path(current_time: Time.new.advance(months: 1)) do %>
+    <%= @calender_days[15].strftime('%B') %>
+    <%= link_to jobs_path(current_time: @calender_days[15].advance(months: 1)) do %>
       <span class="glyphicon glyphicon-chevron-right"></span>
     <% end %>
   </h2>
-
-  <%# @current_time %>
 
   <div class="calender">
     <table class="table">
@@ -35,11 +31,14 @@
             <% 7.times do %>
               <td>
                 <% date = @calender_days[count] %>
-                <u><%= date.strftime('%d') %></u><br />
-                <% @jobs.limit(3).where('DATE(datetime) = ?', Date.parse(date.to_s)).each do |job| %>
-                  <%= job.name %><br />
+                <% client_set = create_client_set(date) %>
+                <%= render partial: 'day', locals: {jobs: @jobs, count: count, date: date, client_set: client_set} %>
+                <% client_set[0..2].each do |client| %>
+                  <%= link_to User.find(client).username, show_user_path(id: User.find(client).id) %><br />
                 <% end %>
-                <%= render partial: 'day', locals: {jobs: @jobs, count: count, date: date} %>
+                <% if client_set.length > 3 %>
+                  <p class="center-text">+ <%= client_set.length - 3 %> More</p>
+                <% end %>
                 <% count += 1 %>
               </td>
             <% end %>
