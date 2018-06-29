@@ -1,7 +1,11 @@
 <div class="white-background">
   <h4><%= @user.name %></h4>
   <h5><%= get_address(@user) %></h5>
-  <%  @jobs.where(client_id: @user.id).order(:datetime).each do |job| %>
-    <strong><%= link_to job.datetime.strftime('%Y/%m/%d - %I:%M%P'), show_job_path(id: job.id), class: "monospace-font" %></strong><br />
+  <% @jobs.where(client_id: @user.id).order(:datetime).each do |job| %>
+    <% if job.datetime.strftime('%Y/%m/%d') == Time.now.strftime('%Y/%m/%d')%>
+      <p class="highlight"><strong><span class="monospace-font"><%= job.datetime.strftime('%Y/%m/%d - %I:%M%P') %></span></strong>&nbsp&nbsp<%= link_to job.name, show_job_path(id: job.id) %></p>
+    <% else %>
+      <p><strong><span class="monospace-font"><%= job.datetime.strftime('%Y/%m/%d - %I:%M%P') %></span></strong>&nbsp&nbsp<%= link_to job.name, show_job_path(id: job.id) %></p>
+    <% end %>
   <% end %>
 </div>

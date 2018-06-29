@@ -2,12 +2,12 @@
   <p id="notice"><%= notice %></p>
 
   <p>
-    <strong>Name:</strong>
+    <strong>Job Name:</strong>
     <%= @job.name %>
   </p>
 
   <p>
-    <strong>Datetime:</strong>
+    <strong>Date:</strong>
     <%= @job.datetime.strftime('%Y/%m/%d - %I:%M%P') %>
   </p>
 
@@ -18,7 +18,7 @@
 
   <p>
     <strong>Client:</strong>
-    <%= User.find(@job.client_id).username %>
+    <%= link_to User.find(@job.client_id).name, show_user_path(id: @job.client_id) %>
   </p>
 
   <p>
@@ -26,7 +26,12 @@
     <%= @job.notes %>
   </p>
 
-  <!-- Add Workers -->
+  <p>
+    <strong>Workers:</strong><br />
+    <% @workers.each do |worker| %>
+      <%= User.find(worker).name %><br />
+    <% end %>
+  </p>
 
   <%= link_to 'Edit', edit_job_path(@job), class: "btn btn-warning" %>
   <%= link_to 'Destroy', @job, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>

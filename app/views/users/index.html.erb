@@ -15,11 +15,11 @@
             <td><%= user.role %></td>
             <td><%= link_to user.email, edit_user_path(id: user.id) %></td>
             <td><%= user.username %></td>
-            <td><%= user.name %></td>
+            <td><%= link_to user.name, show_user_path(id: user.id) %></td>
             <% if user.street == nil || user.city == nil || user.state == nil || user.zip == nil %>
               <td></td>
             <% else %>
-              <td><%= user.street %>, <%= user.city %>, <%= user.state %> <%= user.zip %></td>
+              <td><%= get_address(user) %></td>
             <% end %>
           </tr>
         <% end %>

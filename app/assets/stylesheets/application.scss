@@ -11,6 +11,12 @@
 @import "user";
 @import "jobs";
 
+.highlight {
+  background-color: $myw-blue;
+  border-radius: 2px;
+  padding: 0 2px 0 2px;
+}
+
 .demo {
   font-size: 12px;
   background-color: #ff4d4d;

@@ -1,6 +1,12 @@
-<button type="button" class="align-text-bottom btn btn-primary btn-xs" data-toggle="modal" data-target="#day-tasks-<%= count %>">
-  <%= date.strftime('%d') %>
-</button>
+<% if date.strftime('%Y/%m/%d') == Time.now.strftime('%Y/%m/%d') %>
+  <button type="button" class="align-text-bottom btn btn-warning btn-xs" data-toggle="modal" data-target="#day-tasks-<%= count %>">
+    <%= date.strftime('%d') %>
+  </button>
+<% else %>
+  <button type="button" class="align-text-bottom btn btn-primary btn-xs" data-toggle="modal" data-target="#day-tasks-<%= count %>">
+    <%= date.strftime('%d') %>
+  </button>
+<% end %>
 <div class="modal fade" id="day-tasks-<%= count %>" tabindex="-1" role="dialog" aria-labelledby="day-tasks-Label" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -9,15 +15,15 @@
       </div>
       <div class="modal-body">
         <% client_set.each do |client| %>
-          <!-- Not ordered -->
-          <h5><%= link_to User.find(client).username, show_user_path(id: User.find(client).id) %></h5>
+          <h4><%= link_to User.find(client).name, show_user_path(id: User.find(client).id) %></h4>
           <% @jobs.where("client_id = ? AND DATE(datetime) = ?", User.find(client).id, Date.parse(date.to_s)).order(:datetime).each do |job| %>
-            <u>Name:</u> <%= job.name %><br />
+            <u>Job Name:</u> <%= link_to job.name, show_job_path(id: job.id) %><br />
+            <u>Address:</u> <%= get_address(User.find(job.client_id)) %><br />
             <u>Time:</u> <%= job.datetime.strftime('%I:%M%P') %><br />
             <u>Created</u> By: <%= User.find(job.created_by).username %><br />
             <u>Notes:</u> <%= job.notes %><br />
-            <br />
-            <!--  Add Workers -->
+            <u>Workers:</u><br />
+            <% find_workers(job).each do |worker| %><%= User.find(worker).name %><br /><% end %>
           <% end %>
           <hr />
         <% end %>

@@ -37,12 +37,9 @@ class JobsController < ApplicationController
 
   end
 
-  def schedule
-    
-  end
-
   # GET /jobs/1
   def show
+    @workers = @job.workers.scan(/\d+/).each { |x| x.to_i }
   end
 
   # GET /jobs/new
@@ -82,7 +79,7 @@ class JobsController < ApplicationController
   def destroy
     @job.destroy
     respond_to do |format|
-      format.html { redirect_to jobs_url, notice: 'Job was successfully destroyed.' }
+      format.html { redirect_to jobs_url(current_time: Time.now), notice: 'Job was successfully destroyed.' }
     end
   end
 

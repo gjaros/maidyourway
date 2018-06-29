@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :schedule]
   before_action :authenticate_user!
   before_action :authorize_admin, only: [:create, :edit, :update]
 
@@ -10,6 +10,25 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = User.all
+  end
+
+  # creates array filled with job objects for specific worker
+  def schedule
+    @jobs = []
+    @current_week = Time.now
+
+    until @current_week.strftime('%A') == 'Sunday' do
+      @current_week = @current_week.advance(days: -1)
+    end
+
+    Job.all.order(:datetime).each do |job|
+      if job.workers.include?(@user.id.to_s)
+        if job.datetime > @current_week.at_beginning_of_day() && job.datetime < @current_week.advance(days: 6).at_end_of_day()
+          @jobs.push(job)
+        end
+      end
+    end
+
   end
 
   # GET /users/1

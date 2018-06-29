@@ -4,38 +4,38 @@
   Maid Your Way
 </div>
 
-<div class="row">
-  <% @blog_posts.each do |blog_post| %>
-    <div class="col-md-4">
-      <div class="panel panel-default">
-        <div class="panel-blog-post">
-          <div class="panel-heading">
-            <p><%= link_to blog_post.title, blog_post %></p>
-            <!-- <div class="blog-pic-style"> -->
+<% @blog_posts.each_slice(3) do |slice| %>
+  <div class="row">
+    <% slice.each do |blog_post| %>
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-blog-post">
+            <div class="panel-heading">
+              <p><%= link_to blog_post.title, blog_post %></p>
               <%= link_to (image_tag blog_post.blog_pic.url), blog_post %>
-            <!-- </div> -->
+            </div>
           </div>
-        </div>
-        <div class="panel-body">
-          by <%=  blog_post.user.username %>
-          <% if blog_post.user.avatar.nil? %>
-            <%= image_tag blog_post.user.avatar.url, size: 40 %>
-          <% else %>
-            <%= image_tag 'user.svg', size: 40 %>
-          <% end %><br />
-          <p><i>Created: <%= blog_post.created_at.strftime('%m/%d/%Y at %I:%M%p') %></i></p>
-          <p><%= blog_post.blog[0..150] %>..<%= link_to "Read More", blog_post %></p>
-        </div>
-        <% if signed_in? && (current_user.role == "admin" || current_user.role == "manager") %>
-          <div class="panel-footer">
-            <%= link_to 'Edit', edit_blog_post_path(blog_post), class: "btn btn-warning" %>
-            <%= link_to 'Destroy', blog_post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+          <div class="panel-body">
+            by <%=  blog_post.user.username %>
+            <% if blog_post.user.avatar.nil? %>
+              <%= image_tag blog_post.user.avatar.url, size: 40 %>
+            <% else %>
+              <%= image_tag 'user.svg', size: 40 %>
+            <% end %><br />
+            <p><i>Created: <%= blog_post.created_at.strftime('%m/%d/%Y at %I:%M%p') %></i></p>
+            <p><%= blog_post.blog[0..150] %>..<%= link_to "Read More", blog_post %></p>
           </div>
-        <% end %>
+          <% if signed_in? && (current_user.role == "admin" || current_user.role == "manager") %>
+            <div class="panel-footer">
+              <%= link_to 'Edit', edit_blog_post_path(blog_post), class: "btn btn-warning" %>
+              <%= link_to 'Destroy', blog_post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+            </div>
+          <% end %>
+        </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+<% end %>
 
 <% if signed_in? && (current_user.role == "admin" || current_user.role == "manager") %>
   <%= link_to 'New Blog Post', new_blog_post_path, class: "btn btn-default" %>

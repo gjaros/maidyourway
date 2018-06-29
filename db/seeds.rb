@@ -31,7 +31,7 @@ end
     workers = []
 
     3.times do
-      workers.push(User.where(role: "worker").sample)
+      workers.push(User.where(role: "worker").sample.id)
     end
 
     job = Job.create!(name: Faker::Lorem.words(2).join(" "), datetime: Time.new(2018, month, days, rand(8..16), [00, 15, 30, 45].sample, 0), created_by: 1, client_id: user.id, notes: Faker::Lorem.sentence, workers: workers)
@@ -49,5 +49,3 @@ end
     comment = Comment.create!(user_id: User.where(role: "client").sample.id , comment: Faker::Lorem.sentences(rand(1..3)).join(" "), blog_post_id: post.id)
   end
 end
-
-#comments

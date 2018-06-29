@@ -1,0 +1,43 @@
+<div class="white-background">
+  <table class="table weekly_schedule">
+    <thead>
+      <tr><h3 class="center-text">Week of <%= @current_week.strftime('%m/%d') %> - <%= @current_week.advance(days: 6).strftime('%m/%d') %></h3></tr>
+      <tr>
+        <th>Sunday</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% 7.times do |n| %>
+          <td>
+            <% @jobs.each do |job| %>
+              <% if @current_week.advance(days: n).strftime('%A') == job.datetime.strftime('%A') %>
+                <div class="appointment">
+                  <%= User.find(job.client_id).name %><br />
+                  <%= job.datetime.strftime('%I:%M%P') %><br />
+                  <%= link_to job.name, show_job_path(id: job.id) %><br />
+                  <strong>Workers:</strong><br />
+                  <% find_workers(job).each do |worker| %>
+                    <% if User.find(worker).id == current_user.id %>
+                      <div class="highlight">
+                        <%= User.find(worker).name %><br />
+                      </div>
+                    <% else %>
+                      <%= User.find(worker).name %><br />
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>

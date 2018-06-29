@@ -10,12 +10,13 @@ class Ability
     end
 
     if user.worker?
-      can :read, [BlogPost, Comment, Job]
+      # can :read, :all
+      can :manage, :all
     end
 
     if user.manager?
       can :manage, [BlogPost, Comment, Job]
-      can :read, [User]
+      can :read, :all
     end
 
     if user.admin?

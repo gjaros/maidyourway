@@ -1,0 +1,24 @@
+<button type="button" class="navbar-btn btn btn-danger btn-sm" data-toggle="modal" data-target="#demo" data-backdrop="false">
+  Demo Users
+</button>
+<div class="modal fade" id="demo" tabindex="-1" role="dialog" aria-labelledby="demo-Label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="demo-ModalLabel">Welcome!</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          Welcome to my demo site (work in progress)! Please use any of the emails (all passwords are "password") below to login and see the sites features. I suggest try the Admin and Worker users to see all the features. Source code can be found on my <a style="color: blue;" href="https://github.com/gjaros/maidyourway">github</a>!
+        </p>
+        <p><strong>Admin:</strong> admin@maidyourway</p>
+        <p><strong>Manager:</strong> manager@maidyourway</p>
+        <p><strong>Worker:</strong> <%= User.where(role: "worker").sample.email %></p>
+        <p><strong>Client:</strong> <%= User.where(role: "client").sample.email %></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

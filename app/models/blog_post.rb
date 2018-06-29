@@ -1,7 +1,7 @@
 class BlogPost < ApplicationRecord
 
   has_many :comments, dependent: :destroy
-  belongs_to :user, dependent: :destroy
+  belongs_to :user
 
   validates :title, :blog, presence: true
   validates :title, uniqueness: true, length: { maximum: 140 }

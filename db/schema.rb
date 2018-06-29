@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180516165535) do
+ActiveRecord::Schema.define(version: 20180628184817) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.integer "user_id"
@@ -38,6 +38,14 @@ ActiveRecord::Schema.define(version: 20180516165535) do
     t.string "workers"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "jobs_users", id: false, force: :cascade do |t|
+    t.integer "job_id", null: false
+    t.integer "user_id", null: false
+    t.index ["job_id", "user_id"], name: "index_jobs_users_on_job_id_and_user_id", unique: true
+    t.index ["job_id"], name: "index_jobs_users_on_job_id"
+    t.index ["user_id"], name: "index_jobs_users_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

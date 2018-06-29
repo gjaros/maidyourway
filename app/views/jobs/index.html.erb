@@ -34,7 +34,7 @@
                 <% client_set = create_client_set(date) %>
                 <%= render partial: 'day', locals: {jobs: @jobs, count: count, date: date, client_set: client_set} %>
                 <% client_set[0..2].each do |client| %>
-                  <%= link_to User.find(client).username, show_user_path(id: User.find(client).id) %><br />
+                  <%= link_to User.find(client).name, show_user_path(id: User.find(client).id) %><br />
                 <% end %>
                 <% if client_set.length > 3 %>
                   <p class="center-text">+ <%= client_set.length - 3 %> More</p>
