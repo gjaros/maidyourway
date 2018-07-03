@@ -3,9 +3,17 @@
 # rake db:migrate
 # rake db:seed
 
-# admin/manager
+# admin
 User.create(email: "admin@maidyourway.com", role: "admin", username: "Admin", password: "password", password_confirmation: "password")
-User.create(email: "manager@maidyourway.com", role: "manager", username: "Manager", password: "password", password_confirmation: "password")
+
+#managers
+5.times do
+  name = Faker::Name.first_name + " " + Faker::Name.last_name
+  username = Faker::Internet.user_name(name, %w(.))
+  email = username + "@maidyourway.com"
+
+  user = User.create!(phone: Faker::PhoneNumber.cell_phone, role: 'manager', name: name, username: username, email: email, street: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zip: Faker::Address.zip, password: "password", password_confirmation: "password")
+end
 
 # workers
 20.times do
@@ -13,7 +21,7 @@ User.create(email: "manager@maidyourway.com", role: "manager", username: "Manage
   username = Faker::Internet.user_name(name, %w(.))
   email = username + "@maidyourway.com"
 
-  user = User.create!(role: 'worker', name: name, username: username, email: email, street: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zip: Faker::Address.zip, password: "password", password_confirmation: "password")
+  user = User.create!(phone: Faker::PhoneNumber.cell_phone, role: 'worker', name: name, username: username, email: email, street: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zip: Faker::Address.zip, password: "password", password_confirmation: "password")
 end
 
 # clients
@@ -22,19 +30,24 @@ end
   username = Faker::Internet.user_name(name, %w(.))
   email = username + ["@hotmail.com", "@gmail.com", "@yahoo.com"].sample
 
-  user = User.create!(name: name, username: username, email: email, street: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zip: Faker::Address.zip, password: "password", password_confirmation: "password")
+  user = User.create!(phone: Faker::PhoneNumber.cell_phone, name: name, username: username, email: email, street: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zip: Faker::Address.zip, password: "password", password_confirmation: "password")
 
   # jobs
   rand(3..10).times do
     month = rand(1..12)
     days = rand(1..Time.days_in_month(month))
-    workers = []
 
-    3.times do
-      workers.push(User.where(role: "worker").sample.id)
+    job = Job.create(name: Faker::Lorem.words(2).join(" "), datetime: Time.new(2018, month, days, rand(8..16), [00, 15, 30, 45].sample, 0), created_by: 1, client_id: user.id, notes: Faker::Lorem.sentence)
+
+    until job.workers.length == 3
+      worker = User.where(role: "worker").sample.id
+      if !job.workers.include?(worker)
+        job.workers.push(worker)
+      end
     end
 
-    job = Job.create!(name: Faker::Lorem.words(2).join(" "), datetime: Time.new(2018, month, days, rand(8..16), [00, 15, 30, 45].sample, 0), created_by: 1, client_id: user.id, notes: Faker::Lorem.sentence, workers: workers)
+    job.save!
+
   end
 end
 

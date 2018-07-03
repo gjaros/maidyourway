@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @users.each do |user| %>
+        <% @users.where.not(role: "admin").each do |user| %>
           <tr>
             <td><%= user.role %></td>
             <td><%= link_to user.email, edit_user_path(id: user.id) %></td>

@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :set_job, only: [:show, :edit, :update, :destroy]
+  before_action :set_job, only: [:show, :edit, :update, :destroy, :add_worker, :remove_worker]
   before_action :authenticate_user!
   before_action :calender, only: :index
 
@@ -39,7 +39,6 @@ class JobsController < ApplicationController
 
   # GET /jobs/1
   def show
-    @workers = @job.workers.scan(/\d+/).each { |x| x.to_i }
   end
 
   # GET /jobs/new

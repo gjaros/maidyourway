@@ -23,7 +23,7 @@
             <u>Created</u> By: <%= User.find(job.created_by).username %><br />
             <u>Notes:</u> <%= job.notes %><br />
             <u>Workers:</u><br />
-            <% find_workers(job).each do |worker| %><%= User.find(worker).name %><br /><% end %>
+            <% job.workers.each do |worker| %><%= User.find(worker).name %><br /><% end %>
           <% end %>
           <hr />
         <% end %>

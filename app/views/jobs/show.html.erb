@@ -28,7 +28,7 @@
 
   <p>
     <strong>Workers:</strong><br />
-    <% @workers.each do |worker| %>
+    <% @job.workers.each do |worker| %>
       <%= User.find(worker).name %><br />
     <% end %>
   </p>

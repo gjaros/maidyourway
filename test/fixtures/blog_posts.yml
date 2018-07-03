@@ -2,10 +2,9 @@
 
 one:
   user_id: 1
-  title: MyString
-  blog: MyText
+  title: 1st Blog
+  blog: This is my first blog!
 
 two:
   user_id: 1
-  title: MyString
-  blog: MyText
+  blog: This is my second blog!

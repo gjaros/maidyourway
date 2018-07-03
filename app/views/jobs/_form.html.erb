@@ -28,6 +28,13 @@
     <%= form.collection_select(:client_id, User.where(role: "client"), :id, :name) %>
   </div>
 
+  <p>
+    <strong>Workers:</strong><br />
+    <% @job.workers.each do |worker| %>
+      <%= link_to User.find(worker).name, remove_worker_path(id: worker) %><br />
+    <% end %>
+  </p>
+
   <div class="form-group">
     <%= form.label :workers %>
     <%= form.collection_select(:workers, User.where(role: "worker"), :id, :name) %>

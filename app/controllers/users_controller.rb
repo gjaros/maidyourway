@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     end
 
     Job.all.order(:datetime).each do |job|
-      if job.workers.include?(@user.id.to_s)
+      if job.workers.include?(@user.id)
         if job.datetime > @current_week.at_beginning_of_day() && job.datetime < @current_week.advance(days: 6).at_end_of_day()
           @jobs.push(job)
         end
@@ -60,6 +60,11 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
+    if params[:user][:password].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+    
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to users_path(@user), notice: 'User was successfully updated.' }
@@ -83,6 +88,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :role, :name, :street, :city, :zip, :state, :username, :avatar)
+      params.require(:user).permit(:email, :password, :password_confirmation, :role, :name, :street, :city, :zip, :state, :username, :avatar, :phone)
     end
 end

@@ -1,9 +1,5 @@
 module UserHelper
 
-  def find_workers(job)
-    return job.workers.scan(/\d+/).each { |x| x.to_i }
-  end
-
   private
 
   def authorize_admin
